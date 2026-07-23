@@ -82,8 +82,8 @@ h2 {
   width: 100vw;
   height: 100vh;
 
-  /* Carga la imagen jpeg y si falla muestra verde de fondo */
-  background: #28a745 url('../fondo.jpeg') no-repeat center center;
+  /* Imagen de prueba directa */
+  background: url('https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?q=80&w=1000') no-repeat center center;
   background-size: cover;
 
   color: white;
