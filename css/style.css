@@ -83,7 +83,7 @@ h2 {
   height: 100vh;
 
   /* Imagen de prueba directa */
-  background: url('https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?q=80&w=1000') no-repeat center center;
+  background: #28a745 url('../img/fondo.jpeg') no-repeat center center;
   background-size: cover;
 
   color: white;
