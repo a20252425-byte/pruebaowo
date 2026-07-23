@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invitación Especial OWO</title>
   <style>
-    /* --- ESTILOS CSS (Para el centrado y diseño) --- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,96 +17,101 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #f0f2f5; /* Un fondo gris suave */
-      overflow: hidden; /* Evita que salgan barras de desplazamiento si el botón se mueve mucho */
+      background-color: #f0f2f5;
+      overflow: hidden; /* Para que el botón no cree barras de desplazamiento */
     }
 
-    /* El recuadro central principal */
+    /* RECUADRO CENTRAL FIJO */
     .contenedor {
       background-color: white;
-      padding: 50px;
+      padding: 40px 30px;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       text-align: center;
-      position: relative; /* Necesario para posicionar el botón 'No' dentro */
-      width: 90%;
-      max-width: 400px;
-      transition: all 0.3s ease;
+      width: 350px; /* Tamaño fijo para que NO se deforme */
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     h2 {
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       color: #333;
+      font-size: 22px;
     }
 
-    /* Contenedor para los botones */
     .botones {
       display: flex;
-      justify-content: space-around;
+      gap: 20px;
+      justify-content: center;
       align-items: center;
-      min-height: 60px; /* Espacio para que el botón 'No' se mueva */
+      width: 100%;
     }
 
     .btn {
-      padding: 15px 30px;
-      font-size: 18px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: transform 0.1s ease;
     }
 
-    /* Estilo para 'Go pe' */
+    /* Botón 'Go pe' */
     #btnGo {
-      background-color: #4CAF50; /* Verde */
+      background-color: #28a745;
       color: white;
     }
+
     #btnGo:hover {
-      background-color: #45a049;
       transform: scale(1.1);
+      background-color: #218838;
     }
 
-    /* Estilo para 'ño wakala' */
+    /* Botón 'ño wakala' */
     #btnNo {
-      background-color: #f44336; /* Rojo */
+      background-color: #dc3545;
       color: white;
-      position: absolute; /* Importante para moverlo */
-      /* Posición inicial */
-      bottom: 50px;
-      right: 50px;
+      position: fixed; /* FIXED hace que no afecte el tamaño de la caja */
+      z-index: 10;
     }
 
-    /* --- Estilos para la pantalla final OWO --- */
+    /* PANTALLA FINAL OWO */
     .pantalla-final {
-      display: none; /* Oculta por defecto */
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #4CAF50; /* Fondo verde OWO */
+      width: 100vw;
+      height: 100vh;
+      background-color: #28a745;
       color: white;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      z-index: 100; /* Asegura que esté encima de todo */
+      z-index: 1000;
     }
 
     .pantalla-final h1 {
-      font-size: 100px;
-      font-weight: bold;
+      font-size: 90px;
+      margin-bottom: 10px;
     }
 
-    /* Clase para mostrar elementos con flexbox */
+    .pantalla-final p {
+      font-size: 24px;
+    }
+
     .show {
-      display: flex;
+      display: flex !important;
     }
-
   </style>
 </head>
 <body>
 
-<!-- RECUADRO CENTRAL DE INVITACIÓN -->
+<!-- Recuadro invitación -->
 <div class="contenedor" id="invitacion">
   <h2>¿Sale jugar/salir hoy? OWO</h2>
   <div class="botones">
@@ -116,55 +120,53 @@
   </div>
 </div>
 
-<!-- PANTALLA FINAL OWO (Oculta al inicio) -->
+<!-- Pantalla final -->
 <div class="pantalla-final" id="resultado">
   <h1>OWO</h1>
   <p>¡Sabía que dirías que sí! 👀✨</p>
 </div>
 
-<!-- --- SCRIPT JAVASCRIPT (Para la interactividad) --- -->
 <script>
   const btnNo = document.getElementById('btnNo');
   const btnGo = document.getElementById('btnGo');
   const pantallaInvitacion = document.getElementById('invitacion');
   const pantallaResultado = document.getElementById('resultado');
 
-  // Función para mover el botón "ño wakala" aleatoriamente
-  function moverBotonNo() {
-    // Obtenemos las dimensiones de la ventana del navegador
-    const anchoVentana = window.innerWidth;
-    const altoVentana = window.innerHeight;
-
-    // Obtenemos las dimensiones del botón
-    const anchoBoton = btnNo.offsetWidth;
-    const altoBoton = btnNo.offsetHeight;
-
-    // Calculamos posiciones aleatorias máximas y mínimas
-    // Aseguramos que no se salga de la pantalla
-    const maxTop = altoVentana - altoBoton - 20; // 20px de margen
-    const maxLeft = anchoVentana - anchoBoton - 20;
-
-    const randomTop = Math.floor(Math.random() * maxTop);
-    const randomLeft = Math.floor(Math.random() * maxLeft);
-
-    // Aplicamos las nuevas posiciones aleatorias
-    btnNo.style.top = randomTop + 'px';
-    btnNo.style.left = randomLeft + 'px';
-    btnNo.style.position = 'fixed'; // Asegura que se mueva por toda la pantalla
+  // Posicionar el botón 'ño wakala' al inicio justo al lado de 'Go pe'
+  function acomodarBotonInicial() {
+    const rectGo = btnGo.getBoundingClientRect();
+    btnNo.style.top = `${rectGo.top}px`;
+    btnNo.style.left = `${rectGo.right + 20}px`;
   }
 
-  // --- Eventos ---
+  // Ejecutar posicionamiento inicial
+  window.onload = acomodarBotonInicial;
+  window.onresize = acomodarBotonInicial;
 
-  // 1. Cuando el cursor se acerca a "ño wakala" (mouseover)
-  btnNo.addEventListener('mouseover', moverBotonNo);
-  // También para dispositivos táctiles (touchstart)
-  btnNo.addEventListener('touchstart', moverBotonNo);
+  // Función para escapar por TODA la pantalla
+  function escapar() {
+    const padding = 50; // Margen para que no quede pegado al borde
+    const maxX = window.innerWidth - btnNo.offsetWidth - padding;
+    const maxY = window.innerHeight - btnNo.offsetHeight - padding;
 
-  // 2. Cuando se presiona "Go pe"
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+    btnNo.style.left = `${randomX}px`;
+    btnNo.style.top = `${randomY}px`;
+  }
+
+  // Eventos para mover el botón
+  btnNo.addEventListener('mouseover', escapar);
+  btnNo.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Evita que se haga clic en celular
+    escapar();
+  });
+
+  // Evento botón verde
   btnGo.addEventListener('click', () => {
-    // Ocultamos el recuadro de invitación
     pantallaInvitacion.style.display = 'none';
-    // Mostramos la pantalla final OWO
+    btnNo.style.display = 'none'; // Desaparece el botón travieso
     pantallaResultado.classList.add('show');
   });
 </script>
