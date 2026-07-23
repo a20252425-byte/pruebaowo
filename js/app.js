@@ -1,20 +1,42 @@
 const btnNo = document.getElementById('btnNo');
 const btnGo = document.getElementById('btnGo');
-const cardInvitacion = document.getElementById('cardInvitacion');
-const cardResultado = document.getElementById('cardResultado');
+const pantallaInvitacion = document.getElementById('invitacion');
+const pantallaResultado = document.getElementById('resultado');
 
-// Función para mover el botón "ño wakala" lejos del cursor
-btnNo.addEventListener('mouseover', () => {
-    // Calculamos posiciones aleatorias dentro del recuadro
-    const x = Math.random() * (cardInvitacion.clientWidth - btnNo.clientWidth);
-    const y = Math.random() * (cardInvitacion.clientHeight - btnNo.clientHeight);
+// Posicionar el botón 'ño wakala' al inicio justo al lado de 'Go pe'
+function acomodarBotonInicial() {
+    const rectGo = btnGo.getBoundingClientRect();
+    btnNo.style.top = `${rectGo.top}px`;
+    btnNo.style.left = `${rectGo.right + 20}px`;
+}
 
-    btnNo.style.left = `${x}px`;
-    btnNo.style.top = `${y}px`;
+// Ejecutar posicionamiento inicial
+window.onload = acomodarBotonInicial;
+window.onresize = acomodarBotonInicial;
+
+// Función para escapar por TODA la pantalla
+function escapar() {
+    const padding = 50;
+    const maxX = window.innerWidth - btnNo.offsetWidth - padding;
+    const maxY = window.innerHeight - btnNo.offsetHeight - padding;
+
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+    btnNo.style.left = `${randomX}px`;
+    btnNo.style.top = `${randomY}px`;
+}
+
+// Eventos para mover el botón
+btnNo.addEventListener('mouseover', escapar);
+btnNo.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    escapar();
 });
 
-// Cuando haga clic en "Go pe"
+// Evento botón verde
 btnGo.addEventListener('click', () => {
-    cardInvitacion.classList.add('hidden');
-    cardResultado.classList.remove('hidden');
+    pantallaInvitacion.style.display = 'none';
+    btnNo.style.display = 'none';
+    pantallaResultado.classList.add('show');
 });

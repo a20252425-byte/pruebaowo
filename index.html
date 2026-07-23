@@ -4,117 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invitación Especial OWO</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #f0f2f5;
-      overflow: hidden; /* Para que el botón no cree barras de desplazamiento */
-    }
-
-    /* RECUADRO CENTRAL FIJO */
-    .contenedor {
-      background-color: white;
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      text-align: center;
-      width: 350px; /* Tamaño fijo para que NO se deforme */
-      height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    h2 {
-      margin-bottom: 25px;
-      color: #333;
-      font-size: 22px;
-    }
-
-    .botones {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      margin-left: -150px;
-    }
-
-    .btn {
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.1s ease;
-    }
-
-    /* Botón 'Go pe' */
-    #btnGo {
-      background-color: #28a745;
-      color: white;
-    }
-
-    #btnGo:hover {
-      transform: scale(1.1);
-      background-color: #218838;
-    }
-
-    /* Botón 'ño wakala' */
-    #btnNo {
-      background-color: #dc3545;
-      color: white;
-      position: fixed; /* FIXED hace que no afecte el tamaño de la caja */
-      z-index: 10;
-    }
-
-    /* PANTALLA FINAL OWO */
-    .pantalla-final {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #28a745;
-      color: white;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1000;
-    }
-
-    .pantalla-final h1 {
-      font-size: 90px;
-      margin-bottom: 10px;
-    }
-
-    .pantalla-final p {
-      font-size: 24px;
-    }
-
-    .show {
-      display: flex !important;
-    }
-  </style>
+  <!-- Enlace al archivo CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <!-- Recuadro invitación -->
 <div class="contenedor" id="invitacion">
-  <h2>¿Vamos a ver el atardecer a las 5 de la tarde? :3 </h2>
+  <h2>¿Vamos a ver el atardecer a las 5 de la tarde? :3</h2>
   <div class="botones">
     <button class="btn" id="btnGo">Go pe</button>
     <button class="btn" id="btnNo">ño wakala</button>
@@ -127,49 +24,7 @@
   <p>✨disfrutemos el atardecer✨</p>
 </div>
 
-<script>
-  const btnNo = document.getElementById('btnNo');
-  const btnGo = document.getElementById('btnGo');
-  const pantallaInvitacion = document.getElementById('invitacion');
-  const pantallaResultado = document.getElementById('resultado');
-
-  // Posicionar el botón 'ño wakala' al inicio justo al lado de 'Go pe'
-  function acomodarBotonInicial() {
-    const rectGo = btnGo.getBoundingClientRect();
-    btnNo.style.top = `${rectGo.top}px`;
-    btnNo.style.left = `${rectGo.right + 20}px`;
-  }
-
-  // Ejecutar posicionamiento inicial
-  window.onload = acomodarBotonInicial;
-  window.onresize = acomodarBotonInicial;
-
-  // Función para escapar por TODA la pantalla
-  function escapar() {
-    const padding = 50; // Margen para que no quede pegado al borde
-    const maxX = window.innerWidth - btnNo.offsetWidth - padding;
-    const maxY = window.innerHeight - btnNo.offsetHeight - padding;
-
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-
-    btnNo.style.left = `${randomX}px`;
-    btnNo.style.top = `${randomY}px`;
-  }
-
-  // Eventos para mover el botón
-  btnNo.addEventListener('mouseover', escapar);
-  btnNo.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Evita que se haga clic en celular
-    escapar();
-  });
-
-  // Evento botón verde
-  btnGo.addEventListener('click', () => {
-    pantallaInvitacion.style.display = 'none';
-    btnNo.style.display = 'none'; // Desaparece el botón travieso
-    pantallaResultado.classList.add('show');
-  });
-</script>
+<!-- Enlace al archivo JS -->
+<script src="js/app.js"></script>
 </body>
 </html>

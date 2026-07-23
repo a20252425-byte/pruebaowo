@@ -1,3 +1,79 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  overflow: hidden;
+}
+
+/* RECUADRO CENTRAL FIJO */
+.contenedor {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  text-align: center;
+  width: 350px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 22px;
+}
+
+.botones {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: -150px; /* Ajuste ligero hacia la izquierda */
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+/* Botón 'Go pe' */
+#btnGo {
+  background-color: #28a745;
+  color: white;
+}
+
+#btnGo:hover {
+  transform: scale(1.1);
+  background-color: #218838;
+}
+
+/* Botón 'ño wakala' */
+#btnNo {
+  background-color: #dc3545;
+  color: white;
+  position: fixed;
+  z-index: 10;
+}
+
+/* PANTALLA FINAL CON IMAGEN DE FONDO */
 .pantalla-final {
   display: none;
   position: fixed;
@@ -6,15 +82,28 @@
   width: 100vw;
   height: 100vh;
 
-  /* --- CONFIGURACIÓN DE LA IMAGEN DE FONDO --- */
-  background-image: url('img/fondo.jpeg'); /* Reemplaza 'fondo.jpeg' por el nombre exacto de tu archivo */
-  background-size: cover;       /* Cubre toda la pantalla */
-  background-position: center;  /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita que se repita */
+  /* Carga la imagen jpeg y si falla muestra verde de fondo */
+  background: #28a745 url('../fondo.jpeg') no-repeat center center;
+  background-size: cover;
 
   color: white;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   z-index: 1000;
+}
+
+.pantalla-final h1 {
+  font-size: 90px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5); /* Sombra para que se lea mejor en la foto */
+}
+
+.pantalla-final p {
+  font-size: 24px;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+.show {
+  display: flex !important;
 }
