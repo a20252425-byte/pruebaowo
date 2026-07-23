@@ -1,69 +1,20 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #a8edd9, #fed6e3);
-  overflow: hidden;
-}
-
-.card {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  position: relative;
-}
-
-h2, h1 {
-  color: #333;
-  margin-bottom: 25px;
-}
-
-.buttons-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  min-height: 50px;
-  align-items: center;
-}
-
-.btn {
-  padding: 12px 25px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.btn-go {
-  background-color: #28a745;
-  color: white;
-}
-
-.btn-go:hover {
-  transform: scale(1.1);
-  background-color: #218838;
-}
-
-.btn-no {
-  background-color: #dc3545;
-  color: white;
-  position: absolute; /* Para que pueda moverse libremente */
-}
-
-.hidden {
+.pantalla-final {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  /* --- CONFIGURACIÓN DE LA IMAGEN DE FONDO --- */
+  background-image: url('img/fondo.jpeg'); /* Reemplaza 'fondo.jpeg' por el nombre exacto de tu archivo */
+  background-size: cover;       /* Cubre toda la pantalla */
+  background-position: center;  /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que se repita */
+
+  color: white;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
 }
