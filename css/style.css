@@ -5,6 +5,11 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* REGLA SUPREMA DE OCULTAMIENTO */
+.oculto {
+  display: none !important;
+}
+
 body {
   display: flex;
   justify-content: center;
@@ -14,7 +19,7 @@ body {
   overflow: hidden;
 }
 
-/* RECUADRO CENTRAL (INVITACIÓN) */
+/* RECUADRO INICIAL */
 .contenedor {
   background-color: white;
   padding: 40px 30px;
@@ -71,14 +76,14 @@ h2 {
   z-index: 10;
 }
 
-/* --- ESTILOS DEL MINIJUEGO --- */
+/* RECUADRO DEL MINIJUEGO */
 .contenedor-juego {
-  display: none; /* ¡OCULTO AL INICIO! */
   background-color: white;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   text-align: center;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -91,7 +96,6 @@ h2 {
   font-size: 16px;
 }
 
-/* TABLERO 3x3 EN TARJETA */
 .tablero {
   display: grid;
   grid-template-columns: repeat(3, 70px);
@@ -120,24 +124,21 @@ h2 {
   background-color: #e2e6ea;
 }
 
-/* PANTALLA FINAL EN PANTALLA COMPLETA */
+/* PANTALLA FINAL */
 .pantalla-final {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-
-  /* Carga la imagen de fondo */
   background: #28a745 url('../fondo.jpeg') no-repeat center center;
   background-size: cover;
-
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 10000; /* Se superpone a todo */
+  z-index: 10000;
 }
 
 .pantalla-final h1 {
@@ -149,9 +150,4 @@ h2 {
 .pantalla-final p {
   font-size: 24px;
   text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-}
-
-/* CLASE PARA MOSTRAR PANTALLAS */
-.show {
-  display: flex !important;
 }

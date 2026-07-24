@@ -4,16 +4,22 @@ const pantallaInvitacion = document.getElementById('invitacion');
 const pantallaJuego = document.getElementById('pantalla-juego');
 const pantallaResultado = document.getElementById('resultado');
 
-// Acomodar botón "ño wakala"
-function acomodarBotonInicial() {
+// 1. FORZAR ESTADO INICIAL (Asegura que el juego y el YEI empiecen ocultos)
+function iniciarEstado() {
+    pantallaJuego.classList.add('oculto');
+    pantallaResultado.classList.add('oculto');
+    pantallaInvitacion.classList.remove('oculto');
+
+    // Acomodar botón "ño wakala"
     const rectGo = btnGo.getBoundingClientRect();
     btnNo.style.top = `${rectGo.top}px`;
     btnNo.style.left = `${rectGo.right + 20}px`;
 }
 
-window.onload = acomodarBotonInicial;
-window.onresize = acomodarBotonInicial;
+window.onload = iniciarEstado;
+window.onresize = iniciarEstado;
 
+// LÓGICA BOTÓN TRAVIESO "ÑO WAKALA"
 function escapar() {
     const padding = 50;
     const maxX = window.innerWidth - btnNo.offsetWidth - padding;
@@ -69,7 +75,7 @@ function manejarClickCelda(e) {
         mensajeJuego.textContent = "te estas pasando :c";
         juegoActivo = false;
 
-        // Esperamos 1 segundo para que vea la victoria y LUEGO cambiamos
+        // Esperamos 1.2 segundos para que vea su victoria y luego cambiamos
         setTimeout(() => {
             // 1. OCULTAR EL MINIJUEGO COMPLETAMENTE
             pantallaJuego.classList.add('oculto');
