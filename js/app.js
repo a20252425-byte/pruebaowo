@@ -4,7 +4,7 @@ const pantallaInvitacion = document.getElementById('invitacion');
 const pantallaJuego = document.getElementById('pantalla-juego');
 const pantallaResultado = document.getElementById('resultado');
 
-// LÓGICA BOTÓN "NO"
+// Acomodar botón "ño wakala"
 function acomodarBotonInicial() {
     const rectGo = btnGo.getBoundingClientRect();
     btnNo.style.top = `${rectGo.top}px`;
@@ -32,23 +32,23 @@ btnNo.addEventListener('touchstart', (e) => {
     escapar();
 });
 
-// PASAR DE LA INVITACIÓN AL JUEGO
+// AL DARLE A "GO PE" -> Oculta invitación y MUESTRA el juego en tarjeta
 btnGo.addEventListener('click', () => {
     pantallaInvitacion.style.display = 'none';
     btnNo.style.display = 'none';
     pantallaJuego.classList.add('show');
 });
 
-// --- LÓGICA DEL TRES EN RAYA ---
+// LÓGICA DEL TRES EN RAYA
 const celdas = document.querySelectorAll('.celda');
 const mensajeJuego = document.getElementById('mensaje-juego');
 let tablero = ["", "", "", "", "", "", "", "", ""];
 let juegoActivo = true;
 
 const combinacionesGanadoras = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Filas
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columnas
-    [0, 4, 8], [2, 4, 6]             // Diagonales
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
 ];
 
 celdas.forEach(celda => {
@@ -60,28 +60,28 @@ function manejarClickCelda(e) {
 
     if (tablero[index] !== "" || !juegoActivo) return;
 
-    // Turno Jugador (X)
+    // Jugador (X)
     hacerMovimiento(index, "X");
 
     if (verificarGanador("X")) {
-        mensajeJuego.textContent = "¡Ganaste! 🎉 Cargando atardecer...";
+        mensajeJuego.textContent = "¡Ganaste! 🎉 Abriendo el atardecer...";
         juegoActivo = false;
         setTimeout(() => {
             pantallaJuego.style.display = 'none';
             pantallaResultado.classList.add('show');
-        }, 1500);
+        }, 1200);
         return;
     }
 
     if (tableroCompleto()) {
-        reiniciarJuego("¡Empate! Inténtalo de nuevo 😉");
+        reiniciarJuego("¡Empate! Inténtalo otra vez 😉");
         return;
     }
 
-    // Turno Máquina (O)
+    // Máquina (O)
     juegoActivo = false;
     mensajeJuego.textContent = "Pensando...";
-    setTimeout(turnoMaquina, 600);
+    setTimeout(turnoMaquina, 500);
 }
 
 function hacerMovimiento(index, jugador) {
@@ -91,7 +91,6 @@ function hacerMovimiento(index, jugador) {
 }
 
 function turnoMaquina() {
-    // Buscar casilla vacía al azar
     let vacias = [];
     tablero.forEach((val, idx) => {
         if (val === "") vacias.push(idx);
@@ -102,12 +101,12 @@ function turnoMaquina() {
         hacerMovimiento(randomIndex, "O");
 
         if (verificarGanador("O")) {
-            reiniciarJuego("¡Te gané! Inténtalo otra vez 😜");
+            reiniciarJuego("¡Te gané! Inténtalo de nuevo 😜");
             return;
         }
 
         if (tableroCompleto()) {
-            reiniciarJuego("¡Empate! Inténtalo de nuevo 😉");
+            reiniciarJuego("¡Empate! Inténtalo otra vez 😉");
             return;
         }
     }
@@ -133,5 +132,5 @@ function reiniciarJuego(mensaje) {
         celdas.forEach(celda => celda.textContent = "");
         mensajeJuego.textContent = "Tu turno (X)";
         juegoActivo = true;
-    }, 1800);
+    }, 1500);
 }

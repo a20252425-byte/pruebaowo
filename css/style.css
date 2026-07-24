@@ -14,6 +14,7 @@ body {
   overflow: hidden;
 }
 
+/* RECUADRO CENTRAL (INVITACIÓN) */
 .contenedor {
   background-color: white;
   padding: 40px 30px;
@@ -21,7 +22,7 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   text-align: center;
   width: 350px;
-  height: 200px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,7 +30,7 @@ body {
 }
 
 h2 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #333;
   font-size: 20px;
 }
@@ -72,49 +73,54 @@ h2 {
 
 /* --- ESTILOS DEL MINIJUEGO --- */
 .contenedor-juego {
-  display: none; /* Oculto al inicio */
+  display: none; /* ¡OCULTO AL INICIO! */
   background-color: white;
-  padding: 25px;
+  padding: 30px;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   text-align: center;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 #mensaje-juego {
   margin-bottom: 15px;
   font-weight: bold;
   color: #555;
+  font-size: 16px;
 }
 
+/* TABLERO 3x3 EN TARJETA */
 .tablero {
   display: grid;
-  grid-template-columns: repeat(3, 80px);
-  grid-template-rows: repeat(3, 80px);
-  gap: 8px;
+  grid-template-columns: repeat(3, 70px);
+  grid-template-rows: repeat(3, 70px);
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .celda {
-  width: 80px;
-  height: 80px;
-  background-color: #e9ecef;
-  border-radius: 10px;
+  width: 70px;
+  height: 70px;
+  background-color: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 36px;
+  font-size: 32px;
   font-weight: bold;
-  color: #333;
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.2s;
 }
 
 .celda:hover {
-  background-color: #dee2e6;
+  background-color: #e2e6ea;
 }
 
-/* --- PANTALLA FINAL --- */
+/* PANTALLA FINAL */
 .pantalla-final {
   display: none;
   position: fixed;
@@ -142,6 +148,7 @@ h2 {
   text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 }
 
+/* CLASE PARA MOSTRAR PANTALLAS */
 .show {
   display: flex !important;
 }
