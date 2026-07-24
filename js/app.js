@@ -297,3 +297,41 @@ document.getElementById("btnUp").addEventListener("click", () => { if (dy === 0)
 document.getElementById("btnDown").addEventListener("click", () => { if (dy === 0) { dx = 0; dy = gridSize; } });
 document.getElementById("btnLeft").addEventListener("click", () => { if (dx === 0) { dx = -gridSize; dy = 0; } });
 document.getElementById("btnRight").addEventListener("click", () => { if (dx === 0) { dx = gridSize; dy = 0; } });
+
+// --- CONTROL POR DESLIZAMIENTO (SWIPE) EN MÓVIL ---
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+canvas.addEventListener('touchend', (e) => {
+    let touchEndX = e.changedTouches[0].clientX;
+    let touchEndY = e.changedTouches[0].clientY;
+
+    let diffX = touchEndX - touchStartX;
+    let diffY = touchEndY - touchStartY;
+
+    // Sensibilidad mínima para detectar el deslizamiento (20px)
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        // Movimiento Horizontal (Izquierda / Derecha)
+        if (Math.abs(diffX) > 20) {
+            if (diffX > 0 && dx === 0) {
+                dx = gridSize; dy = 0; // Derecha
+            } else if (diffX < 0 && dx === 0) {
+                dx = -gridSize; dy = 0; // Izquierda
+            }
+        }
+    } else {
+        // Movimiento Vertical (Arriba / Abajo)
+        if (Math.abs(diffY) > 20) {
+            if (diffY > 0 && dy === 0) {
+                dx = 0; dy = gridSize; // Abajo
+            } else if (diffY < 0 && dy === 0) {
+                dx = 0; dy = -gridSize; // Arriba
+            }
+        }
+    }
+}, { passive: true });

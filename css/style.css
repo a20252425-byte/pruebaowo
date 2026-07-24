@@ -144,9 +144,10 @@ h2 {
 }
 
 #snakeCanvas {
-  background-color: #9bbc0f; /* Color verde pantalla Nokia clásica */
+  background-color: #9bbc0f;
   border: 4px solid #0f380f;
   border-radius: 10px;
+  touch-action: none; /* 👈 Esto evita que la página haga scroll al deslizar el dedo */
 }
 
 /* Controles Celular */
