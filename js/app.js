@@ -4,7 +4,7 @@ const pantallaInvitacion = document.getElementById('invitacion');
 const pantallaJuego = document.getElementById('pantalla-juego');
 const pantallaResultado = document.getElementById('resultado');
 
-// 1. FORZAR ESTADO INICIAL (Asegura que el juego y el YEI empiecen ocultos)
+// 1. FORZAR ESTADO INICIAL
 function iniciarEstado() {
     pantallaJuego.classList.add('oculto');
     pantallaResultado.classList.add('oculto');
@@ -75,16 +75,13 @@ function manejarClickCelda(e) {
         mensajeJuego.textContent = "te estas pasando :c";
         juegoActivo = false;
 
-        // Esperamos 1.2 segundos para que vea su victoria y luego cambiamos
         setTimeout(() => {
-            // 1. OCULTAR EL MINIJUEGO COMPLETAMENTE
             pantallaJuego.classList.add('oculto');
             pantallaJuego.setAttribute('hidden', 'true');
 
-            // 2. MOSTRAR LA PANTALLA FINAL
             pantallaResultado.removeAttribute('hidden');
             pantallaResultado.classList.remove('oculto');
-        }, 1200);
+        }, 1500);
         return;
     }
 
@@ -96,7 +93,8 @@ function manejarClickCelda(e) {
     // Turno de la Máquina (O)
     juegoActivo = false;
     mensajeJuego.textContent = "dame tiempo we";
-    setTimeout(turnoMaquina, 500);
+
+    setTimeout(turnoMaquina, 1000);
 }
 
 function hacerMovimiento(index, jugador) {
@@ -111,19 +109,54 @@ function turnoMaquina() {
         if (val === "") vacias.push(idx);
     });
 
-    if (vacias.length > 0) {
-        const randomIndex = vacias[Math.floor(Math.random() * vacias.length)];
-        hacerMovimiento(randomIndex, "O");
+    if (vacias.length === 0) return;
 
+    let movimientoElegido = null;
+
+    // 1. INTENTAR GANAR (O)
+    for (let idx of vacias) {
+        tablero[idx] = "O";
         if (verificarGanador("O")) {
-            reiniciarJuego("muejejejeje");
-            return;
+            movimientoElegido = idx;
+            tablero[idx] = "";
+            break;
         }
+        tablero[idx] = "";
+    }
 
-        if (tableroCompleto()) {
-            reiniciarJuego("oño, un empate tenemos que reiniciar we");
-            return;
+    // 2. BLOQUEAR AL JUGADOR (X)
+    if (movimientoElegido === null) {
+        for (let idx of vacias) {
+            tablero[idx] = "X";
+            if (verificarGanador("X")) {
+                movimientoElegido = idx;
+                tablero[idx] = "";
+                break;
+            }
+            tablero[idx] = "";
         }
+    }
+
+    // 3. ESTRATEGIA (Tomar el centro si está libre)
+    if (movimientoElegido === null && tablero[4] === "") {
+        movimientoElegido = 4;
+    }
+
+    // 4. AZAR
+    if (movimientoElegido === null) {
+        movimientoElegido = vacias[Math.floor(Math.random() * vacias.length)];
+    }
+
+    hacerMovimiento(movimientoElegido, "O");
+
+    if (verificarGanador("O")) {
+        reiniciarJuego("muejejejeje");
+        return;
+    }
+
+    if (tableroCompleto()) {
+        reiniciarJuego("oño, un empate tenemos que reiniciar we");
+        return;
     }
 
     mensajeJuego.textContent = "Tu turno (X)";
@@ -142,10 +175,11 @@ function tableroCompleto() {
 
 function reiniciarJuego(mensaje) {
     mensajeJuego.textContent = mensaje;
+
     setTimeout(() => {
         tablero = ["", "", "", "", "", "", "", "", ""];
         celdas.forEach(celda => celda.textContent = "");
         mensajeJuego.textContent = "Tu turno (X)";
         juegoActivo = true;
-    }, 1500);
+    }, 2000);
 }
