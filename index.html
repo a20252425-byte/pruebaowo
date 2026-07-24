@@ -34,13 +34,12 @@
   </div>
 </div>
 
-<!-- 3. MINIJUEGO 2: LA SERPIENTE (SNAKE NOKIA) -->
+<!-- 3. MINIJUEGO 2: LA SERPIENTE -->
 <div class="contenedor-snake oculto" id="pantalla-snake">
-  <h2>¡Llega a 10 puntos para aceptar! 🐍🍎</h2>
-  <p id="score-text">Puntos: 0 / 10</p>
+  <h2>Agarra 5 minpaos para ganar 🐍🥟</h2>
+  <p id="score-text">0 / 5 minpaos</p>
   <canvas id="snakeCanvas" width="300" height="300"></canvas>
 
-  <!-- Controles en pantalla por si abre la web en el cel -->
   <div class="controles-tactiles">
     <button id="btnUp">⬆️</button>
     <div>
@@ -51,10 +50,13 @@
   </div>
 </div>
 
-<!-- 4. PANTALLA FINAL -->
+<!-- 4. PANTALLA FINAL (Con la imagen directa en HTML para que NUNCA vuelva a salir verde) -->
 <div class="pantalla-final oculto" id="resultado">
-  <h1>YEI</h1>
-  <p>✨disfrutemos el atardecer✨</p>
+  <img src="fondo.jpeg" id="imagen-fondo" alt="Fondo Atardecer">
+  <div class="contenido-final">
+    <h1>YEI</h1>
+    <p>✨disfrutemos el atardecer✨</p>
+  </div>
 </div>
 
 <script src="js/app.js"></script>

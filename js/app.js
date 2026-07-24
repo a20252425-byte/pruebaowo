@@ -5,7 +5,7 @@ const pantallaJuego = document.getElementById('pantalla-juego');
 const pantallaSnake = document.getElementById('pantalla-snake');
 const pantallaResultado = document.getElementById('resultado');
 
-// 1. ESTADO INICIAL
+// ESTADO INICIAL
 function iniciarEstado() {
     pantallaJuego.classList.add('oculto');
     pantallaSnake.classList.add('oculto');
@@ -39,7 +39,7 @@ btnNo.addEventListener('touchstart', (e) => {
     escapar();
 });
 
-// PASAR DE INVITACIÓN A TRES EN RAYA
+// INVITACIÓN A TRES EN RAYA
 btnGo.addEventListener('click', () => {
     pantallaInvitacion.classList.add('oculto');
     btnNo.classList.add('oculto');
@@ -48,7 +48,7 @@ btnGo.addEventListener('click', () => {
     pantallaJuego.classList.remove('oculto');
 });
 
-// --- LÓGICA DEL TRES EN RAYA ---
+// TRES EN RAYA
 const celdas = document.querySelectorAll('.celda');
 const mensajeJuego = document.getElementById('mensaje-juego');
 let tablero = ["", "", "", "", "", "", "", "", ""];
@@ -75,11 +75,10 @@ function manejarClickCelda(e) {
         mensajeJuego.textContent = "te estas pasando :c";
         juegoActivo = false;
 
-        // Pasa al juego de Snake
         setTimeout(() => {
             pantallaJuego.classList.add('oculto');
             pantallaSnake.classList.remove('oculto');
-            iniciarSnake(); // Arranca el juego de la serpiente
+            iniciarSnake();
         }, 1500);
         return;
     }
@@ -176,7 +175,7 @@ function reiniciarJuego(mensaje) {
     }, 2000);
 }
 
-// --- LÓGICA DEL JUEGO SNAKE (NOKIA) ---
+// LÓGICA SNAKE (5 MINPAOS)
 const canvas = document.getElementById("snakeCanvas");
 const ctx = canvas.getContext("2d");
 const scoreText = document.getElementById("score-text");
@@ -200,11 +199,11 @@ function iniciarSnake() {
     dx = gridSize;
     dy = 0;
     score = 0;
-    scoreText.textContent = `Puntos: ${score} / 10`;
+    scoreText.textContent = `${score} / 5 minpaos`;
     generarComida();
 
     if (snakeInterval) clearInterval(snakeInterval);
-    snakeInterval = setInterval(bucleSnake, 130); // Velocidad serpiente
+    snakeInterval = setInterval(bucleSnake, 130);
 }
 
 function generarComida() {
@@ -216,7 +215,7 @@ function bucleSnake() {
     moverSerpiente();
 
     if (comprobarColision()) {
-        scoreText.textContent = "OÑO CHOCASTE WE";
+        scoreText.textContent = "¡Añeñe chocaste! Reiniciando...";
         iniciarSnake();
         return;
     }
@@ -228,13 +227,13 @@ function moverSerpiente() {
     const cabeza = { x: snake[0].x + dx, y: snake[0].y + dy };
     snake.unshift(cabeza);
 
-    // Si come la manzana
+    // Si agarra un minpao
     if (cabeza.x === food.x && cabeza.y === food.y) {
         score++;
-        scoreText.textContent = `Puntos: ${score} / 10`;
+        scoreText.textContent = `${score} / 5 minpaos`;
 
-        // 🎯 LLEGAR A SCORE 10 -> GANAR Y PASAR AL YEI FINAL
-        if (score >= 10) {
+        // 🎯 LLEGAR A 5 MINPAOS
+        if (score >= 5) {
             clearInterval(snakeInterval);
             scoreText.textContent = "lo lograste we";
             setTimeout(() => {
@@ -246,19 +245,17 @@ function moverSerpiente() {
 
         generarComida();
     } else {
-        snake.pop(); // Si no come, remueve la cola
+        snake.pop();
     }
 }
 
 function comprobarColision() {
     const cabeza = snake[0];
 
-    // Choque con paredes
     if (cabeza.x < 0 || cabeza.x >= canvas.width || cabeza.y < 0 || cabeza.y >= canvas.height) {
         return true;
     }
 
-    // Choque con su propio cuerpo
     for (let i = 1; i < snake.length; i++) {
         if (cabeza.x === snake[i].x && cabeza.y === snake[i].y) {
             return true;
@@ -269,15 +266,12 @@ function comprobarColision() {
 }
 
 function dibujarSnake() {
-    // Fondo retro Nokia (#9bbc0f)
     ctx.fillStyle = "#9bbc0f";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Dibujar manzana (#0f380f)
     ctx.fillStyle = "#0f380f";
     ctx.fillRect(food.x, food.y, gridSize - 2, gridSize - 2);
 
-    // Dibujar serpiente (#0f380f)
     snake.forEach((part, index) => {
         ctx.fillStyle = index === 0 ? "#0f380f" : "#306230";
         ctx.fillRect(part.x, part.y, gridSize - 2, gridSize - 2);
@@ -292,13 +286,13 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight" && dx === 0) { dx = gridSize; dy = 0; }
 });
 
-// BOTONES EN PANTALLA (Para celular)
+// BOTONES TÁCTILES
 document.getElementById("btnUp").addEventListener("click", () => { if (dy === 0) { dx = 0; dy = -gridSize; } });
 document.getElementById("btnDown").addEventListener("click", () => { if (dy === 0) { dx = 0; dy = gridSize; } });
 document.getElementById("btnLeft").addEventListener("click", () => { if (dx === 0) { dx = -gridSize; dy = 0; } });
 document.getElementById("btnRight").addEventListener("click", () => { if (dx === 0) { dx = gridSize; dy = 0; } });
 
-// --- CONTROL POR DESLIZAMIENTO (SWIPE) EN MÓVIL ---
+// CONTROLES SWIPE EN CELULAR
 let touchStartX = 0;
 let touchStartY = 0;
 
@@ -314,24 +308,15 @@ canvas.addEventListener('touchend', (e) => {
     let diffX = touchEndX - touchStartX;
     let diffY = touchEndY - touchStartY;
 
-    // Sensibilidad mínima para detectar el deslizamiento (20px)
     if (Math.abs(diffX) > Math.abs(diffY)) {
-        // Movimiento Horizontal (Izquierda / Derecha)
         if (Math.abs(diffX) > 20) {
-            if (diffX > 0 && dx === 0) {
-                dx = gridSize; dy = 0; // Derecha
-            } else if (diffX < 0 && dx === 0) {
-                dx = -gridSize; dy = 0; // Izquierda
-            }
+            if (diffX > 0 && dx === 0) { dx = gridSize; dy = 0; }
+            else if (diffX < 0 && dx === 0) { dx = -gridSize; dy = 0; }
         }
     } else {
-        // Movimiento Vertical (Arriba / Abajo)
         if (Math.abs(diffY) > 20) {
-            if (diffY > 0 && dy === 0) {
-                dx = 0; dy = gridSize; // Abajo
-            } else if (diffY < 0 && dy === 0) {
-                dx = 0; dy = -gridSize; // Arriba
-            }
+            if (diffY > 0 && dy === 0) { dx = 0; dy = gridSize; }
+            else if (diffY < 0 && dy === 0) { dx = 0; dy = -gridSize; }
         }
     }
 }, { passive: true });
