@@ -41,7 +41,7 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-left: -15px;
+  margin-left: -150px;
 }
 
 .btn {
@@ -120,21 +120,24 @@ h2 {
   background-color: #e2e6ea;
 }
 
-/* PANTALLA FINAL */
+/* PANTALLA FINAL EN PANTALLA COMPLETA */
 .pantalla-final {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: url('../fondo.jpeg') no-repeat center center;
+
+  /* Carga la imagen de fondo */
+  background: #28a745 url('../fondo.jpeg') no-repeat center center;
   background-size: cover;
+
   color: white;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 1000;
+  z-index: 10000; /* Se superpone a todo */
 }
 
 .pantalla-final h1 {

@@ -32,11 +32,13 @@ btnNo.addEventListener('touchstart', (e) => {
     escapar();
 });
 
-// AL DARLE A "GO PE" -> Oculta invitación y MUESTRA el juego en tarjeta
+// PASAR DE LA INVITACIÓN AL MINIJUEGO
 btnGo.addEventListener('click', () => {
-    pantallaInvitacion.style.display = 'none';
-    btnNo.style.display = 'none';
-    pantallaJuego.classList.add('show');
+    pantallaInvitacion.classList.add('oculto');
+    btnNo.classList.add('oculto');
+
+    pantallaJuego.removeAttribute('hidden');
+    pantallaJuego.classList.remove('oculto');
 });
 
 // LÓGICA DEL TRES EN RAYA
@@ -64,23 +66,30 @@ function manejarClickCelda(e) {
     hacerMovimiento(index, "X");
 
     if (verificarGanador("X")) {
-        mensajeJuego.textContent = "¡Ganaste! 🎉 Abriendo el atardecer...";
+        mensajeJuego.textContent = "te estas pasando :c";
         juegoActivo = false;
+
+        // Esperamos 1 segundo para que vea la victoria y LUEGO cambiamos
         setTimeout(() => {
-            pantallaJuego.style.display = 'none';
-            pantallaResultado.classList.add('show');
+            // 1. OCULTAR EL MINIJUEGO COMPLETAMENTE
+            pantallaJuego.classList.add('oculto');
+            pantallaJuego.setAttribute('hidden', 'true');
+
+            // 2. MOSTRAR LA PANTALLA FINAL
+            pantallaResultado.removeAttribute('hidden');
+            pantallaResultado.classList.remove('oculto');
         }, 1200);
         return;
     }
 
     if (tableroCompleto()) {
-        reiniciarJuego("¡Empate! Inténtalo otra vez 😉");
+        reiniciarJuego("oño nadie gano we");
         return;
     }
 
-    // Máquina (O)
+    // Turno de la Máquina (O)
     juegoActivo = false;
-    mensajeJuego.textContent = "Pensando...";
+    mensajeJuego.textContent = "dame tiempo we";
     setTimeout(turnoMaquina, 500);
 }
 
@@ -101,12 +110,12 @@ function turnoMaquina() {
         hacerMovimiento(randomIndex, "O");
 
         if (verificarGanador("O")) {
-            reiniciarJuego("¡Te gané! Inténtalo de nuevo 😜");
+            reiniciarJuego("muejejejeje");
             return;
         }
 
         if (tableroCompleto()) {
-            reiniciarJuego("¡Empate! Inténtalo otra vez 😉");
+            reiniciarJuego("oño, un empate tenemos que reiniciar we");
             return;
         }
     }
