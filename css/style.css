@@ -131,7 +131,7 @@ h2 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #28a745 url('../fondo.jpeg') no-repeat center center;
+  background: #28a745 url('../img/fondo.jpeg') no-repeat center center;
   background-size: cover;
   color: white;
   display: flex;
