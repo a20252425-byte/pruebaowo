@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invitación Especial OWO</title>
-  <!-- Enlace al archivo CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- Recuadro invitación -->
+<!-- 1. Recuadro invitación -->
 <div class="contenedor" id="invitacion">
   <h2>¿Vamos a ver el atardecer a las 5 de la tarde? :3</h2>
   <div class="botones">
@@ -18,13 +17,29 @@
   </div>
 </div>
 
-<!-- Pantalla final -->
+<!-- 2. PANTALLA MINIJUEGO (Tres en Raya) -->
+<div class="contenedor-juego" id="pantalla-juego">
+  <h2>¡Gáname una partida para aceptar! ❌⭕</h2>
+  <p id="mensaje-juego">Tu turno (X)</p>
+  <div class="tablero" id="tablero">
+    <div class="celda" data-index="0"></div>
+    <div class="celda" data-index="1"></div>
+    <div class="celda" data-index="2"></div>
+    <div class="celda" data-index="3"></div>
+    <div class="celda" data-index="4"></div>
+    <div class="celda" data-index="5"></div>
+    <div class="celda" data-index="6"></div>
+    <div class="celda" data-index="7"></div>
+    <div class="celda" data-index="8"></div>
+  </div>
+</div>
+
+<!-- 3. Pantalla final -->
 <div class="pantalla-final" id="resultado">
   <h1>YEI</h1>
   <p>✨disfrutemos el atardecer✨</p>
 </div>
 
-<!-- Enlace al archivo JS -->
 <script src="js/app.js"></script>
 </body>
 </html>

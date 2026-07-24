@@ -1,20 +1,19 @@
 const btnNo = document.getElementById('btnNo');
 const btnGo = document.getElementById('btnGo');
 const pantallaInvitacion = document.getElementById('invitacion');
+const pantallaJuego = document.getElementById('pantalla-juego');
 const pantallaResultado = document.getElementById('resultado');
 
-// Posicionar el botón 'ño wakala' al inicio justo al lado de 'Go pe'
+// LÓGICA BOTÓN "NO"
 function acomodarBotonInicial() {
     const rectGo = btnGo.getBoundingClientRect();
     btnNo.style.top = `${rectGo.top}px`;
     btnNo.style.left = `${rectGo.right + 20}px`;
 }
 
-// Ejecutar posicionamiento inicial
 window.onload = acomodarBotonInicial;
 window.onresize = acomodarBotonInicial;
 
-// Función para escapar por TODA la pantalla
 function escapar() {
     const padding = 50;
     const maxX = window.innerWidth - btnNo.offsetWidth - padding;
@@ -27,16 +26,112 @@ function escapar() {
     btnNo.style.top = `${randomY}px`;
 }
 
-// Eventos para mover el botón
 btnNo.addEventListener('mouseover', escapar);
 btnNo.addEventListener('touchstart', (e) => {
     e.preventDefault();
     escapar();
 });
 
-// Evento botón verde
+// PASAR DE LA INVITACIÓN AL JUEGO
 btnGo.addEventListener('click', () => {
     pantallaInvitacion.style.display = 'none';
     btnNo.style.display = 'none';
-    pantallaResultado.classList.add('show');
+    pantallaJuego.classList.add('show');
 });
+
+// --- LÓGICA DEL TRES EN RAYA ---
+const celdas = document.querySelectorAll('.celda');
+const mensajeJuego = document.getElementById('mensaje-juego');
+let tablero = ["", "", "", "", "", "", "", "", ""];
+let juegoActivo = true;
+
+const combinacionesGanadoras = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Filas
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columnas
+    [0, 4, 8], [2, 4, 6]             // Diagonales
+];
+
+celdas.forEach(celda => {
+    celda.addEventListener('click', manejarClickCelda);
+});
+
+function manejarClickCelda(e) {
+    const index = e.target.getAttribute('data-index');
+
+    if (tablero[index] !== "" || !juegoActivo) return;
+
+    // Turno Jugador (X)
+    hacerMovimiento(index, "X");
+
+    if (verificarGanador("X")) {
+        mensajeJuego.textContent = "¡Ganaste! 🎉 Cargando atardecer...";
+        juegoActivo = false;
+        setTimeout(() => {
+            pantallaJuego.style.display = 'none';
+            pantallaResultado.classList.add('show');
+        }, 1500);
+        return;
+    }
+
+    if (tableroCompleto()) {
+        reiniciarJuego("¡Empate! Inténtalo de nuevo 😉");
+        return;
+    }
+
+    // Turno Máquina (O)
+    juegoActivo = false;
+    mensajeJuego.textContent = "Pensando...";
+    setTimeout(turnoMaquina, 600);
+}
+
+function hacerMovimiento(index, jugador) {
+    tablero[index] = jugador;
+    celdas[index].textContent = jugador;
+    celdas[index].style.color = jugador === "X" ? "#28a745" : "#dc3545";
+}
+
+function turnoMaquina() {
+    // Buscar casilla vacía al azar
+    let vacias = [];
+    tablero.forEach((val, idx) => {
+        if (val === "") vacias.push(idx);
+    });
+
+    if (vacias.length > 0) {
+        const randomIndex = vacias[Math.floor(Math.random() * vacias.length)];
+        hacerMovimiento(randomIndex, "O");
+
+        if (verificarGanador("O")) {
+            reiniciarJuego("¡Te gané! Inténtalo otra vez 😜");
+            return;
+        }
+
+        if (tableroCompleto()) {
+            reiniciarJuego("¡Empate! Inténtalo de nuevo 😉");
+            return;
+        }
+    }
+
+    mensajeJuego.textContent = "Tu turno (X)";
+    juegoActivo = true;
+}
+
+function verificarGanador(jugador) {
+    return combinacionesGanadoras.some(combinacion => {
+        return combinacion.every(index => tablero[index] === jugador);
+    });
+}
+
+function tableroCompleto() {
+    return tablero.every(celda => celda !== "");
+}
+
+function reiniciarJuego(mensaje) {
+    mensajeJuego.textContent = mensaje;
+    setTimeout(() => {
+        tablero = ["", "", "", "", "", "", "", "", ""];
+        celdas.forEach(celda => celda.textContent = "");
+        mensajeJuego.textContent = "Tu turno (X)";
+        juegoActivo = true;
+    }, 1800);
+}

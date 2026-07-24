@@ -14,7 +14,6 @@ body {
   overflow: hidden;
 }
 
-/* RECUADRO CENTRAL FIJO */
 .contenedor {
   background-color: white;
   padding: 40px 30px;
@@ -30,9 +29,9 @@ body {
 }
 
 h2 {
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   color: #333;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .botones {
@@ -41,7 +40,7 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-left: -150px; /* Ajuste ligero hacia la izquierda */
+  margin-left: -15px;
 }
 
 .btn {
@@ -54,7 +53,6 @@ h2 {
   transition: transform 0.1s ease;
 }
 
-/* Botón 'Go pe' */
 #btnGo {
   background-color: #28a745;
   color: white;
@@ -65,7 +63,6 @@ h2 {
   background-color: #218838;
 }
 
-/* Botón 'ño wakala' */
 #btnNo {
   background-color: #dc3545;
   color: white;
@@ -73,7 +70,51 @@ h2 {
   z-index: 10;
 }
 
-/* PANTALLA FINAL CON IMAGEN DE FONDO */
+/* --- ESTILOS DEL MINIJUEGO --- */
+.contenedor-juego {
+  display: none; /* Oculto al inicio */
+  background-color: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#mensaje-juego {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #555;
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 80px);
+  gap: 8px;
+}
+
+.celda {
+  width: 80px;
+  height: 80px;
+  background-color: #e9ecef;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+}
+
+.celda:hover {
+  background-color: #dee2e6;
+}
+
+/* --- PANTALLA FINAL --- */
 .pantalla-final {
   display: none;
   position: fixed;
@@ -81,11 +122,8 @@ h2 {
   left: 0;
   width: 100vw;
   height: 100vh;
-
-  /* Imagen de prueba directa */
-  background: #28a745 url('../img/fondo.jpeg') no-repeat center center;
+  background: url('../fondo.jpeg') no-repeat center center;
   background-size: cover;
-
   color: white;
   justify-content: center;
   align-items: center;
@@ -96,7 +134,7 @@ h2 {
 .pantalla-final h1 {
   font-size: 90px;
   margin-bottom: 10px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.5); /* Sombra para que se lea mejor en la foto */
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
 }
 
 .pantalla-final p {
