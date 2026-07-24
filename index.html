@@ -17,9 +17,9 @@
   </div>
 </div>
 
-<!-- 2. MINIJUEGO -->
+<!-- 2. MINIJUEGO 1: TRES EN RAYA -->
 <div class="contenedor-juego oculto" id="pantalla-juego">
-  <h2>¡Gáname una partida para aceptar! ❌⭕</h2>
+  <h2>¡Gáname una partida para continuar! ❌⭕</h2>
   <p id="mensaje-juego">Tu turno (X)</p>
   <div class="tablero" id="tablero">
     <div class="celda" data-index="0"></div>
@@ -34,7 +34,24 @@
   </div>
 </div>
 
-<!-- 3. PANTALLA FINAL -->
+<!-- 3. MINIJUEGO 2: LA SERPIENTE (SNAKE NOKIA) -->
+<div class="contenedor-snake oculto" id="pantalla-snake">
+  <h2>¡Llega a 10 puntos para aceptar! 🐍🍎</h2>
+  <p id="score-text">Puntos: 0 / 10</p>
+  <canvas id="snakeCanvas" width="300" height="300"></canvas>
+
+  <!-- Controles en pantalla por si abre la web en el cel -->
+  <div class="controles-tactiles">
+    <button id="btnUp">⬆️</button>
+    <div>
+      <button id="btnLeft">⬅️</button>
+      <button id="btnDown">⬇️</button>
+      <button id="btnRight">➡️</button>
+    </div>
+  </div>
+</div>
+
+<!-- 4. PANTALLA FINAL -->
 <div class="pantalla-final oculto" id="resultado">
   <h1>YEI</h1>
   <p>✨disfrutemos el atardecer✨</p>
